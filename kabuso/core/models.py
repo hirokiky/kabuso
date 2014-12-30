@@ -52,6 +52,7 @@ class Comment(BaseModel):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='comments')
     page = models.ForeignKey(Page, related_name='comments')
     body = models.TextField(max_length=4095)
+    point = models.IntegerField(help_text='Summary value of counting up/down votes.')
 
     class Meta:
         db_table = 'comment'

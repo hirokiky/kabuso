@@ -1,0 +1,12 @@
+*.pyc
+*.egg-info
+*.egg
+*.db
+*.sw?
+*.sqlite
+.tox
+.coverage
+dist
+docstore/*/build
+.idea
+node_modules

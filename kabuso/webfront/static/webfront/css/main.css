@@ -1,0 +1,18 @@
+.dashboard-stream {
+    border: solid 1px;
+    border-radius: 3px;
+}
+
+.dashboard-stream .page-summary {
+    max-width: 279px;  /* col-md-4 */
+    max-height: 279px;  /* col-md-4 */
+}
+
+.page-detail .page-description {
+    word-break: break-all;
+}
+
+.vote-count {
+    margin-left: 3px;
+    font-weight: bold;
+}

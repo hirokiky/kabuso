@@ -52,4 +52,15 @@ def page_detail(request, page_id):
     if 'error' in resp:
         raise Http404
 
-    return {'page': resp['page']}
+    # Getting way to sort for comment list
+    form = forms.PageDetailForm(request.GET)
+    if not form.is_valid():
+        sorted_by = 'top'
+    else:
+        sorted_by = form.cleaned_data['sorted_by']
+
+    page = resp['page']
+    comments = core_api.list_comments(page, sorted_by=sorted_by)
+
+    return {'page': page,
+            'comments': comments}

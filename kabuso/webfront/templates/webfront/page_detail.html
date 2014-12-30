@@ -2,4 +2,7 @@
 
 {% block main %}
   {{ page }}
+  {% for comment in comments %}
+    {{ comment.body }}
+  {% endfor %}
 {% endblock main %}

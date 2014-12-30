@@ -31,3 +31,11 @@ def page_detail(page_id):
     return {
         'page': page,
     }
+
+
+def list_comments(page, sorted_by='top'):
+    comments = page.comments
+    if sorted_by == 'newest':
+        return comments.order_by('-created_at')
+    else:
+        return comments.order_by('-point')

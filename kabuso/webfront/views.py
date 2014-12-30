@@ -42,8 +42,8 @@ def read_page(request):
         # TODO: Leave notification message or so
         pass
 
-    page_id = resp['page_id']
-    return HttpResponseRedirect(reverse('webfront:page_detail', kwargs={'page_id': page_id}))
+    page = resp['page']
+    return HttpResponseRedirect(reverse('webfront:page_detail', kwargs={'page_id': page.id}))
 
 
 @template_view('webfront/page_detail.html')

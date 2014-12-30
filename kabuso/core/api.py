@@ -18,7 +18,7 @@ def read_page(url, user):
     return {
         'first_read': is_first,
         'already_read': already_read,
-        'page_id': page.id,
+        'page': page,
     }
 
 
@@ -29,7 +29,5 @@ def page_detail(page_id):
         return {'error': {'code': 'not found'}}
 
     return {
-        'page': {
-            'page_url': page.page_url,
-        }
+        'page': page,
     }

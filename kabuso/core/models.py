@@ -25,10 +25,11 @@ class Follow(BaseModel):
 
     class Meta:
         db_table = 'follow'
+        unique_together = ('followee', 'follower')
 
 
 class Page(BaseModel):
-    page_url = models.URLField()
+    page_url = models.URLField(unique=True)
     title = models.CharField(max_length=255)
     summary_image_url = models.URLField()
     summary = models.TextField(max_length=4095)
@@ -44,6 +45,7 @@ class Read(BaseModel):
 
     class Meta:
         db_table = 'read'
+        unique_together = ('user', 'page')
 
 
 class Comment(BaseModel):
@@ -53,6 +55,7 @@ class Comment(BaseModel):
 
     class Meta:
         db_table = 'comment'
+        unique_together = ('user', 'page')
 
 
 class Achievement(BaseModel):
@@ -79,6 +82,7 @@ class UpVote(BaseModel):
 
     class Meta:
         db_table = 'up_vote'
+        unique_together = ('user', 'page')
 
 
 class DownVote(BaseModel):
@@ -87,3 +91,4 @@ class DownVote(BaseModel):
 
     class Meta:
         db_table = 'down_vote'
+        unique_together = ('user', 'page')

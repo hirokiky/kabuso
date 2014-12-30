@@ -1,3 +1,4 @@
+from django.contrib.auth import views as auth_views
 from django.contrib.auth.views import login_required
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect, Http404
@@ -5,6 +6,19 @@ from django.http import HttpResponseRedirect, Http404
 from core import api as core_api
 from core.views.template import template_view
 from webfront import forms
+
+
+def login(request):
+    return auth_views.login(request, template_name='webfront/login.html')
+
+
+def logout(request):
+    return auth_views.logout(request, next_page=reverse('webfront:top'))
+
+
+@template_view('webfront/top.html')
+def top(request):
+    return {}
 
 
 @login_required

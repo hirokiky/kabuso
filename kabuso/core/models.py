@@ -20,8 +20,8 @@ class BaseModel(models.Model):
 
 
 class Follow(BaseModel):
-    followee = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='followee')
-    follower = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='follower')
+    followee = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='followees')
+    follower = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='followers')
 
     class Meta:
         db_table = 'follow'
@@ -40,8 +40,8 @@ class Page(BaseModel):
 
 
 class Read(BaseModel):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
-    page = models.ForeignKey(Page)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='reads')
+    page = models.ForeignKey(Page, related_name='reads')
 
     class Meta:
         db_table = 'read'
@@ -49,8 +49,8 @@ class Read(BaseModel):
 
 
 class Comment(BaseModel):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
-    page = models.ForeignKey(Page)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='comments')
+    page = models.ForeignKey(Page, related_name='comments')
     body = models.TextField(max_length=4095)
 
     class Meta:
@@ -78,7 +78,7 @@ class EarnedAchievement(BaseModel):
 
 class UpVote(BaseModel):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
-    page = models.ForeignKey(Page)
+    page = models.ForeignKey(Page, related_name='up_votes')
 
     class Meta:
         db_table = 'up_vote'
@@ -87,7 +87,7 @@ class UpVote(BaseModel):
 
 class DownVote(BaseModel):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
-    page = models.ForeignKey(Page)
+    page = models.ForeignKey(Page, related_name='down_votes')
 
     class Meta:
         db_table = 'down_vote'

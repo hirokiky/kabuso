@@ -78,17 +78,17 @@ class EarnedAchievement(BaseModel):
 
 class UpVote(BaseModel):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
-    page = models.ForeignKey(Page, related_name='up_votes')
+    comment = models.ForeignKey(Comment, related_name='up_votes')
 
     class Meta:
         db_table = 'up_vote'
-        unique_together = ('user', 'page')
+        unique_together = ('user', 'comment')
 
 
 class DownVote(BaseModel):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
-    page = models.ForeignKey(Page, related_name='down_votes')
+    comment = models.ForeignKey(Comment, related_name='down_votes')
 
     class Meta:
         db_table = 'down_vote'
-        unique_together = ('user', 'page')
+        unique_together = ('user', 'comment')

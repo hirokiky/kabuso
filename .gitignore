@@ -4,6 +4,7 @@
 *.db
 *.sw?
 *.sqlite
+*.sqlite3
 .tox
 .coverage
 dist

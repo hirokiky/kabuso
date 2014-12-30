@@ -6,6 +6,7 @@ from django.utils import timezone
 
 class User(auth_models.AbstractUser):
     class Meta(auth_models.AbstractUser.Meta):
+        db_table = 'user'
         swappable = 'AUTH_USER_MODEL'
 
 

@@ -2,9 +2,9 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-import django.core.validators
 import django.utils.timezone
 from django.conf import settings
+import django.core.validators
 
 
 class Migration(migrations.Migration):
@@ -17,22 +17,23 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='User',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
+                ('id', models.AutoField(serialize=False, primary_key=True, auto_created=True, verbose_name='ID')),
                 ('password', models.CharField(verbose_name='password', max_length=128)),
-                ('last_login', models.DateTimeField(default=django.utils.timezone.now, verbose_name='last login')),
-                ('is_superuser', models.BooleanField(default=False, verbose_name='superuser status', help_text='Designates that this user has all permissions without explicitly assigning them.')),
-                ('username', models.CharField(max_length=30, validators=[django.core.validators.RegexValidator('^[\\w.@+-]+$', 'Enter a valid username.', 'invalid')], verbose_name='username', help_text='Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only.', unique=True)),
+                ('last_login', models.DateTimeField(verbose_name='last login', default=django.utils.timezone.now)),
+                ('is_superuser', models.BooleanField(help_text='Designates that this user has all permissions without explicitly assigning them.', verbose_name='superuser status', default=False)),
+                ('username', models.CharField(help_text='Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only.', validators=[django.core.validators.RegexValidator('^[\\w.@+-]+$', 'Enter a valid username.', 'invalid')], unique=True, verbose_name='username', max_length=30)),
                 ('first_name', models.CharField(blank=True, verbose_name='first name', max_length=30)),
                 ('last_name', models.CharField(blank=True, verbose_name='last name', max_length=30)),
                 ('email', models.EmailField(blank=True, verbose_name='email address', max_length=75)),
-                ('is_staff', models.BooleanField(default=False, verbose_name='staff status', help_text='Designates whether the user can log into this admin site.')),
-                ('is_active', models.BooleanField(default=True, verbose_name='active', help_text='Designates whether this user should be treated as active. Unselect this instead of deleting accounts.')),
-                ('date_joined', models.DateTimeField(default=django.utils.timezone.now, verbose_name='date joined')),
-                ('groups', models.ManyToManyField(blank=True, related_name='user_set', verbose_name='groups', related_query_name='user', to='auth.Group', help_text='The groups this user belongs to. A user will get all permissions granted to each of his/her group.')),
-                ('user_permissions', models.ManyToManyField(blank=True, related_name='user_set', verbose_name='user permissions', related_query_name='user', to='auth.Permission', help_text='Specific permissions for this user.')),
+                ('is_staff', models.BooleanField(help_text='Designates whether the user can log into this admin site.', verbose_name='staff status', default=False)),
+                ('is_active', models.BooleanField(help_text='Designates whether this user should be treated as active. Unselect this instead of deleting accounts.', verbose_name='active', default=True)),
+                ('date_joined', models.DateTimeField(verbose_name='date joined', default=django.utils.timezone.now)),
+                ('groups', models.ManyToManyField(help_text='The groups this user belongs to. A user will get all permissions granted to each of his/her group.', to='auth.Group', related_query_name='user', blank=True, verbose_name='groups', related_name='user_set')),
+                ('user_permissions', models.ManyToManyField(help_text='Specific permissions for this user.', to='auth.Permission', related_query_name='user', blank=True, verbose_name='user permissions', related_name='user_set')),
             ],
             options={
                 'verbose_name_plural': 'users',
+                'db_table': 'user',
                 'verbose_name': 'user',
                 'abstract': False,
                 'swappable': 'AUTH_USER_MODEL',
@@ -42,8 +43,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Achievement',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
-                ('created_at', models.DateTimeField(default=django.utils.timezone.now, db_index=True)),
+                ('id', models.AutoField(serialize=False, primary_key=True, auto_created=True, verbose_name='ID')),
+                ('created_at', models.DateTimeField(db_index=True, default=django.utils.timezone.now)),
                 ('updated_at', models.DateTimeField(auto_now=True, db_index=True)),
                 ('name', models.CharField(max_length=255)),
                 ('description', models.TextField()),
@@ -58,8 +59,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Comment',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
-                ('created_at', models.DateTimeField(default=django.utils.timezone.now, db_index=True)),
+                ('id', models.AutoField(serialize=False, primary_key=True, auto_created=True, verbose_name='ID')),
+                ('created_at', models.DateTimeField(db_index=True, default=django.utils.timezone.now)),
                 ('updated_at', models.DateTimeField(auto_now=True, db_index=True)),
                 ('body', models.TextField(max_length=4095)),
             ],
@@ -71,8 +72,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='DownVote',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
-                ('created_at', models.DateTimeField(default=django.utils.timezone.now, db_index=True)),
+                ('id', models.AutoField(serialize=False, primary_key=True, auto_created=True, verbose_name='ID')),
+                ('created_at', models.DateTimeField(db_index=True, default=django.utils.timezone.now)),
                 ('updated_at', models.DateTimeField(auto_now=True, db_index=True)),
             ],
             options={
@@ -83,8 +84,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='EarnedAchievement',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
-                ('created_at', models.DateTimeField(default=django.utils.timezone.now, db_index=True)),
+                ('id', models.AutoField(serialize=False, primary_key=True, auto_created=True, verbose_name='ID')),
+                ('created_at', models.DateTimeField(db_index=True, default=django.utils.timezone.now)),
                 ('updated_at', models.DateTimeField(auto_now=True, db_index=True)),
                 ('achievement', models.ForeignKey(to='core.Achievement')),
                 ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
@@ -97,11 +98,11 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Follow',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
-                ('created_at', models.DateTimeField(default=django.utils.timezone.now, db_index=True)),
+                ('id', models.AutoField(serialize=False, primary_key=True, auto_created=True, verbose_name='ID')),
+                ('created_at', models.DateTimeField(db_index=True, default=django.utils.timezone.now)),
                 ('updated_at', models.DateTimeField(auto_now=True, db_index=True)),
-                ('followee', models.ForeignKey(related_name='followee', to=settings.AUTH_USER_MODEL)),
-                ('follower', models.ForeignKey(related_name='follower', to=settings.AUTH_USER_MODEL)),
+                ('followee', models.ForeignKey(to=settings.AUTH_USER_MODEL, related_name='followee')),
+                ('follower', models.ForeignKey(to=settings.AUTH_USER_MODEL, related_name='follower')),
             ],
             options={
                 'db_table': 'follow',
@@ -111,8 +112,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Page',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
-                ('created_at', models.DateTimeField(default=django.utils.timezone.now, db_index=True)),
+                ('id', models.AutoField(serialize=False, primary_key=True, auto_created=True, verbose_name='ID')),
+                ('created_at', models.DateTimeField(db_index=True, default=django.utils.timezone.now)),
                 ('updated_at', models.DateTimeField(auto_now=True, db_index=True)),
                 ('page_url', models.URLField()),
                 ('title', models.CharField(max_length=255)),
@@ -128,8 +129,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Read',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
-                ('created_at', models.DateTimeField(default=django.utils.timezone.now, db_index=True)),
+                ('id', models.AutoField(serialize=False, primary_key=True, auto_created=True, verbose_name='ID')),
+                ('created_at', models.DateTimeField(db_index=True, default=django.utils.timezone.now)),
                 ('updated_at', models.DateTimeField(auto_now=True, db_index=True)),
                 ('page', models.ForeignKey(to='core.Page')),
                 ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
@@ -142,8 +143,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='UpVote',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
-                ('created_at', models.DateTimeField(default=django.utils.timezone.now, db_index=True)),
+                ('id', models.AutoField(serialize=False, primary_key=True, auto_created=True, verbose_name='ID')),
+                ('created_at', models.DateTimeField(db_index=True, default=django.utils.timezone.now)),
                 ('updated_at', models.DateTimeField(auto_now=True, db_index=True)),
                 ('page', models.ForeignKey(to='core.Page')),
                 ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),

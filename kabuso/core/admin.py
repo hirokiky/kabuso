@@ -7,5 +7,4 @@ admin.site.register((
     models.User,
     models.Page,
     models.Comment,
-    models.Achievement,
 ))

@@ -59,24 +59,6 @@ class Comment(BaseModel):
         unique_together = ('user', 'page')
 
 
-class Achievement(BaseModel):
-    name = models.CharField(max_length=255)
-    description = models.TextField()
-    image = models.ImageField()
-    point = models.IntegerField()
-
-    class Meta:
-        db_table = 'achievement'
-
-
-class EarnedAchievement(BaseModel):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
-    achievement = models.ForeignKey(Achievement)
-
-    class Meta:
-        db_table = 'earned_achievement'
-
-
 class UpVote(BaseModel):
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
     comment = models.ForeignKey(Comment, related_name='up_votes')

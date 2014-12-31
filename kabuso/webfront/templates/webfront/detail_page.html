@@ -1,7 +1,11 @@
 {% extends 'webfront/base.html' %}
 
 {% block main %}
-  {{ page }}
+  <p>{{ page.title }}</p>
+  {% if page.summary_image_url %}
+    <img src="{{ page.summary_image_url }}" />
+  {% endif %}
+  <p>{{ page.description }}</p>
 
   {% if user_comment %}
     {{ user_comment.body }}

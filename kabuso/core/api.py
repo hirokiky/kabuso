@@ -1,4 +1,5 @@
 from core.models import Page, Read, Comment
+from core.page import request_page
 
 
 def read_page(url, user):
@@ -6,7 +7,13 @@ def read_page(url, user):
         page = Page.objects.get(page_url=url)
         is_first = False
     except Page.DoesNotExist:
-        page = Page.objects.create(page_url=url)
+        page_info = request_page(url)
+        page = Page.objects.create(
+            page_url=url,
+            title=page_info['title'],
+            summary_image_url=page_info['summary_image_url'],
+            description=page_info['description'],
+        )
         is_first = True
 
     if Read.objects.filter(page=page, user=user).exists():

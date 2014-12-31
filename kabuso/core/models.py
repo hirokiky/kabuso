@@ -32,8 +32,7 @@ class Page(BaseModel):
     page_url = models.URLField(unique=True)
     title = models.CharField(max_length=255, null=True, blank=True)
     summary_image_url = models.URLField(null=True, blank=True)
-    summary = models.TextField(max_length=4095, null=True, blank=True)
-    description = models.TextField()
+    description = models.TextField(max_length=4095, null=True, blank=True)
 
     class Meta:
         db_table = 'page'

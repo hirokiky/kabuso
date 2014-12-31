@@ -22,7 +22,7 @@ def read_page(url, user):
     }
 
 
-def page_detail(page_id):
+def detail_page(page_id):
     try:
         page = Page.objects.get(id=page_id)
     except Page.DoesNotExist:
@@ -41,7 +41,7 @@ def list_comments(page, sorted_by='top'):
         return comments.order_by('-point')
 
 
-def comment_detail(user, page):
+def detail_comment(user, page):
     try:
         comment = Comment.objects.get(user=user, page=page)
     except Comment.DoesNotExist:

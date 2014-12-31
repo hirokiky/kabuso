@@ -1,7 +1,7 @@
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.views import login_required
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect, Http404, HttpResponseBadRequest
+from django.http import HttpResponseRedirect, Http404
 from django.views.decorators.http import require_POST
 
 from core import api as core_api
@@ -49,7 +49,7 @@ def read_page(request):
 
 @template_view('webfront/page_detail.html')
 def page_detail(request, page_id):
-    resp = core_api.page_detail(page_id)
+    resp = core_api.detail_page(page_id)
     if 'error' in resp:
         raise Http404
 
@@ -64,7 +64,7 @@ def page_detail(request, page_id):
     comments = core_api.list_comments(page, sorted_by=sorted_by)
 
     if request.user.is_authenticated():
-        resp = core_api.comment_detail(request.user, page)
+        resp = core_api.detail_comment(request.user, page)
         if 'error' in resp:
             user_comment = None
             comment_form = forms.CommentPageForm()

@@ -1,7 +1,8 @@
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.views import login_required
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect, Http404
+from django.http import HttpResponseRedirect, Http404, HttpResponseBadRequest
+from django.views.decorators.http import require_POST
 
 from core import api as core_api
 from core.views.template import template_view
@@ -62,5 +63,37 @@ def page_detail(request, page_id):
     page = resp['page']
     comments = core_api.list_comments(page, sorted_by=sorted_by)
 
+    if request.user.is_authenticated():
+        resp = core_api.comment_detail(request.user, page)
+        if 'error' in resp:
+            user_comment = None
+            comment_form = forms.CommentPageForm()
+        else:
+            user_comment = resp['comment']
+            comment_form = None
+    else:
+        user_comment = None
+        comment_form = forms.CommentPageForm()
+
     return {'page': page,
-            'comments': comments}
+            'comments': comments,
+            'user_comment': user_comment,
+            'comment_form': comment_form}
+
+
+@login_required
+@require_POST
+def comment_page(request, page_id):
+    form = forms.CommentPageForm(request.POST)
+    if not form.is_valid():
+        # TODO: Leave errors as messages
+        return HttpResponseRedirect(reverse('webfront:page_detail', kwargs={'page_id': page_id}))
+
+    core_api.comment_page(
+        request.user,
+        page_id,
+        form.cleaned_data['body'],
+    )
+    return HttpResponseRedirect(
+        '{}?sorted_by=newest'.format(reverse('webfront:page_detail', kwargs={'page_id': page_id}))
+    )

@@ -2,6 +2,19 @@
 
 {% block main %}
   {{ page }}
+
+  {% if user_comment %}
+    {{ user_comment.body }}
+  {% endif %}
+
+  {% if comment_form %}
+    <form method="post" action="{% url 'webfront:comment_page' page_id=page.id %}">
+      {% csrf_token %}
+      {{ comment_form }}
+      <input type="submit" value="Comment"/>
+    </form>
+  {% endif %}
+
   {% for comment in comments %}
     {{ comment.body }}
   {% endfor %}

@@ -1,4 +1,4 @@
-from core.models import Page, Read
+from core.models import Page, Read, Comment
 
 
 def read_page(url, user):
@@ -39,3 +39,25 @@ def list_comments(page, sorted_by='top'):
         return comments.order_by('-created_at')
     else:
         return comments.order_by('-point')
+
+
+def comment_detail(user, page):
+    try:
+        comment = Comment.objects.get(user=user, page=page)
+    except Comment.DoesNotExist:
+        return {'error': {'code': 'not found'}}
+
+    return {
+        'comment': comment
+    }
+
+
+def comment_page(user, page_id, body):
+    comment = Comment.objects.create(
+        user=user,
+        page_id=page_id,
+        body=body,
+    )
+    return {
+        'comment': comment,
+    }

@@ -29,6 +29,12 @@ def read_page(url, user):
     }
 
 
+def is_read_page(user, page):
+    return {
+        'is_read': Read.objects.filter(page=page, user=user).exists(),
+    }
+
+
 def detail_page(page_id):
     try:
         page = Page.objects.get(id=page_id)

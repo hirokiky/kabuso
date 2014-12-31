@@ -4,27 +4,25 @@
   <div class="page-detail">
     <div class="row page-title">
       <div class="col-md-1">
-        <div class="page-comment-count">
+        <div class="page-read-count">
           <span>{{ users_read }}</span>
           users read
         </div>
       </div>
-      <div class="col-md-2"><img class="page-summary-image img-thumbnail" src="{{ page.summary_image_url }}" /></div>
+      {% if page.summary_image_url %}
+        <div class="col-md-2"><img class="page-summary-image img-thumbnail" src="{{ page.summary_image_url }}" /></div>
+      {% endif %}
       <div class="col-md-8"><h3><a class="page-title-link" href="{{ page.page_url }}" target="_blank">{{ page.title }}</a></h3></div>
     </div>
-    <div class="row">
-      <div class="col-md-9">
-        <p class="page-description">{{ page.description }}</p>
-      </div>
-      {% if page.summary_image_url %}
-        <div class="col-md-3">
-        </div>
-      {% endif %}
-    </div>
+    <p class="page-description">{{ page.description }}</p>
   </div>
 
   {% if user_comment %}
     {{ user_comment.body }}
+  {% endif %}
+
+  {% if not user_read %}
+    <button class="btn btn-default">Read</button>
   {% endif %}
 
   {% if comment_form %}

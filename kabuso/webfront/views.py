@@ -71,15 +71,20 @@ def page_detail(request, page_id):
         else:
             user_comment = resp['comment']
             comment_form = None
+
+        resp = core_api.is_read_page(request.user, page)
+        user_read = resp['is_read']
     else:
         user_comment = None
         comment_form = forms.CommentPageForm()
+        user_read = False
 
     return {'page': page,
             'comments': comments,
             'user_comment': user_comment,
             'comment_form': comment_form,
-            'users_read': page.reads.count()}
+            'users_read': page.reads.count(),
+            'user_read': user_read}
 
 
 @login_required

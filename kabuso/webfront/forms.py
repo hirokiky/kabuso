@@ -10,4 +10,4 @@ class PageDetailForm(forms.Form):
 
 
 class CommentPageForm(forms.Form):
-    body = forms.CharField(max_length=4095, widget=forms.TextInput())
+    body = forms.CharField(max_length=4095, widget=forms.Textarea())

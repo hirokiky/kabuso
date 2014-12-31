@@ -12,10 +12,6 @@ body {
     max-height: 279px;  /* col-md-4 */
 }
 
-.page-detail {
-    border-bottom: solid 1px #888888;
-}
-
 .page-title-body {
     text-decoration: none;
 }
@@ -24,13 +20,13 @@ body {
     color: #333333;
 }
 
-.page-detail .page-comment-count {
+.page-detail .page-read-count {
     text-align: center;
     padding-top: 20px;
     color: #c0a16b;
 }
 
-.page-detail .page-comment-count span {
+.page-detail .page-read-count span {
     display: block;
     font-size: x-large;
 }

@@ -41,7 +41,14 @@
     </div><!-- /.container-fluid -->
   </nav>
 
-  {% block main %}{% endblock %}
+  <div class="row">
+    <div class="col-md-8">
+      {% block main %}{% endblock %}
+    </div>
+    <div class="col-md-4">
+    </div>
+  </div>
+
 </div>
 <!-- Scripts -->
 <script type="text/javascript" src="{% static 'webfront/js/libs/jquery.min.js' %}"></script>

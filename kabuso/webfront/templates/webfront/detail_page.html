@@ -1,11 +1,27 @@
 {% extends 'webfront/base.html' %}
 
 {% block main %}
-  <p>{{ page.title }}</p>
-  {% if page.summary_image_url %}
-    <img src="{{ page.summary_image_url }}" />
-  {% endif %}
-  <p>{{ page.description }}</p>
+  <div class="page-detail">
+    <div class="row page-title">
+      <div class="col-md-2">
+        <div class="page-comment-count">
+          <span>10</span>
+          users read
+        </div>
+      </div>
+      <div class="col-md-10"><h3>{{ page.title }}</h3></div>
+    </div>
+    <div class="row">
+      <div class="col-md-9">
+        <p class="page-description">{{ page.description }}</p>
+      </div>
+      {% if page.summary_image_url %}
+        <div class="col-md-3">
+          <img class="page-summary-image img-thumbnail" src="{{ page.summary_image_url }}" />
+        </div>
+      {% endif %}
+    </div>
+  </div>
 
   {% if user_comment %}
     {{ user_comment.body }}

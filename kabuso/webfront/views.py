@@ -78,7 +78,8 @@ def page_detail(request, page_id):
     return {'page': page,
             'comments': comments,
             'user_comment': user_comment,
-            'comment_form': comment_form}
+            'comment_form': comment_form,
+            'users_read': page.reads.count()}
 
 
 @login_required

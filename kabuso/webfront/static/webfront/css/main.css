@@ -12,6 +12,18 @@ body {
     max-height: 279px;  /* col-md-4 */
 }
 
+.page-detail {
+    border-bottom: solid 1px #888888;
+}
+
+.page-title-body {
+    text-decoration: none;
+}
+
+.page-detail .page-title h3 {
+    color: #333333;
+}
+
 .page-detail .page-comment-count {
     text-align: center;
     padding-top: 20px;
@@ -30,8 +42,9 @@ body {
 }
 
 .page-detail .page-summary-image {
-    max-width: 180px;
-    max-height: 180px;
+    margin-top: 10px;
+    max-width: 110px;
+    max-height: 110px;
 }
 
 .vote-count {

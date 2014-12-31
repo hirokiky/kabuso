@@ -47,7 +47,7 @@ def read_page(request):
     return HttpResponseRedirect(reverse('webfront:page_detail', kwargs={'page_id': page.id}))
 
 
-@template_view('webfront/page_detail.html')
+@template_view('webfront/detail_page.html')
 def page_detail(request, page_id):
     resp = core_api.detail_page(page_id)
     if 'error' in resp:

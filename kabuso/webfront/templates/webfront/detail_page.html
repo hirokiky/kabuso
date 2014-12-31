@@ -21,7 +21,9 @@
   <hr />
 
   {% if not user.is_authenticated %}
-    Login and leave your comment.
+    <p>Login and leave your comment.</p>
+    <a href="{% url 'webfront:login' %}?next={% url 'webfront:page_detail' page_id=page.id %}"><button class="btn btn-lg btn-primary">Login</button></a>
+
   {% endif %}
 
   {% if user.is_authenticated and not user_read %}

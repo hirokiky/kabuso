@@ -43,7 +43,32 @@ body {
     max-height: 110px;
 }
 
+.comment-form {
+    margin-top: 25px;
+}
+
+.comment-form textarea {
+    padding: 10px;
+}
+
+.comment-form input[type=submit] {
+    margin-top: 10px;
+}
+
+.comment-list {
+    margin-top: 20px;
+}
+
+.comment-list .comment-list-item {
+    margin-bottom: 20px;
+}
+
 .vote-count {
     margin-left: 3px;
     font-weight: bold;
+}
+
+.user-icon-small {
+    max-width: 100px;
+    max-height: 100px;
 }

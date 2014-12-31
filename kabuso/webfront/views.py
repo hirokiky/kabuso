@@ -76,7 +76,7 @@ def page_detail(request, page_id):
         user_read = resp['is_read']
     else:
         user_comment = None
-        comment_form = forms.CommentPageForm()
+        comment_form = None
         user_read = False
 
     return {'page': page,
@@ -84,7 +84,8 @@ def page_detail(request, page_id):
             'user_comment': user_comment,
             'comment_form': comment_form,
             'users_read': page.reads.count(),
-            'user_read': user_read}
+            'user_read': user_read,
+            'sorted_by': sorted_by}
 
 
 @login_required
@@ -101,5 +102,5 @@ def comment_page(request, page_id):
         form.cleaned_data['body'],
     )
     return HttpResponseRedirect(
-        '{}?sorted_by=newest'.format(reverse('webfront:page_detail', kwargs={'page_id': page_id}))
+        '{}?sorted_by=recent'.format(reverse('webfront:page_detail', kwargs={'page_id': page_id}))
     )

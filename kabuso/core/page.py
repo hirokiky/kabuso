@@ -15,7 +15,7 @@ def request_page(url):
         }
 
     try:
-        res = requests.get(url, timeout=0.5)
+        res = requests.get(url, timeout=1)
     except RequestException:
         return return_default()
 

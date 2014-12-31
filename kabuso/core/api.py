@@ -1,3 +1,5 @@
+from django.db import transaction
+
 from core.models import Page, Read, Comment
 from core.page import request_page
 
@@ -65,12 +67,17 @@ def detail_comment(user, page):
     }
 
 
+@transaction.atomic()
 def comment_page(user, page_id, body):
     comment = Comment.objects.create(
         user=user,
         page_id=page_id,
         body=body,
     )
+
+    if not Read.objects.filter(user=user, page_id=page_id):
+        Read.objects.create(user=user, page_id=page_id)
+
     return {
         'comment': comment,
     }

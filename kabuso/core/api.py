@@ -4,7 +4,7 @@ from core.models import Page, Read, Comment
 from core.page import request_page
 
 
-def read_page(url, user):
+def read_page_url(url, user):
     try:
         page = Page.objects.get(page_url=url)
         is_first = False
@@ -81,3 +81,10 @@ def comment_page(user, page_id, body):
     return {
         'comment': comment,
     }
+
+
+def read_page(user, page_id):
+    if Read.objects.filter(user=user, page_id=page_id).exists():
+        return {'error': {'code': 'existed'}}
+    read = Read.objects.create(user=user, page_id=page_id)
+    return {'read': read}

@@ -23,8 +23,8 @@ def top(request):
 
 
 @login_required
-@template_view('webfront/read_page.html')
-def read_page(request):
+@template_view('webfront/read_page_url.html')
+def read_page_url(request):
     if request.method == 'GET':
         return {'form': forms.ReadPageForm()}
 
@@ -33,7 +33,7 @@ def read_page(request):
         return {'form': form}
 
     url = form.cleaned_data['url']
-    resp = core_api.read_page(url, request.user)
+    resp = core_api.read_page_url(url, request.user)
 
     if resp['first_read']:
         # TODO: Leave Congrats message or so
@@ -103,4 +103,17 @@ def comment_page(request, page_id):
     )
     return HttpResponseRedirect(
         '{}?sorted_by=recent'.format(reverse('webfront:page_detail', kwargs={'page_id': page_id}))
+    )
+
+
+@login_required
+@require_POST
+def read_page(request, page_id):
+    resp = core_api.read_page(request.user, page_id)
+    if 'error' in resp:
+        # TODO: Leave errors as messages
+        pass
+
+    return HttpResponseRedirect(
+        reverse('webfront:page_detail', kwargs={'page_id': page_id})
     )

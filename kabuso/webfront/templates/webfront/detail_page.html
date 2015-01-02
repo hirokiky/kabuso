@@ -4,16 +4,27 @@
 {% block main %}
   <div class="page-detail">
     <div class="row page-title">
-      <div class="col-xs-1">
+      <div class="col-xs-2">
         <div class="page-read-count">
-          <span>{{ users_read }}</span>
-          users read
+          <span class="count-num">{{ users_read }}</span>
+          {% if user.is_authenticated %}
+            {% if not user_read %}
+              <form action="{% url 'webfront:read_page' page_id=page.id %}" method="post">
+                {% csrf_token %}
+                <button class="btn btn-default" type="submit"><span class="count-marker glyphicon glyphicon-ok-circle"></span> as Read</button>
+              </form>
+            {% else %}
+              <p><span class="count-marker glyphicon glyphicon-ok-circle"></span></p>
+            {% endif %}
+          {% else %}
+            <p>users read</p>
+          {% endif %}
         </div>
       </div>
+      <div class="col-xs-7"><h3><a class="page-title-link" href="{{ page.page_url }}" target="_blank">{{ page.title }}</a></h3></div>
       {% if page.summary_image_url %}
         <div class="col-xs-2"><img class="page-summary-image img-thumbnail" src="{{ page.summary_image_url }}" /></div>
       {% endif %}
-      <div class="col-xs-8"><h3><a class="page-title-link" href="{{ page.page_url }}" target="_blank">{{ page.title }}</a></h3></div>
     </div>
     <p class="page-description">{{ page.description }}</p>
   </div>
@@ -24,10 +35,6 @@
     <p>Login and leave your comment.</p>
     <a href="{% url 'webfront:login' %}?next={% url 'webfront:page_detail' page_id=page.id %}"><button class="btn btn-lg btn-primary">Login</button></a>
 
-  {% endif %}
-
-  {% if user.is_authenticated and not user_read %}
-    <button class="btn btn-default">Read</button>
   {% endif %}
 
   {% if comment_form %}

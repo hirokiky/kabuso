@@ -18,23 +18,32 @@ body {
 
 .page-detail .page-title h3 {
     color: #333333;
+    height: 110px;
 }
 
 .page-detail .page-read-count {
     text-align: center;
     padding-top: 20px;
+    display: block;
+    font-size: x-large;
+}
+
+.page-detail .page-read-count .count-num {
     color: #c0a16b;
 }
 
-.page-detail .page-read-count span {
-    display: block;
-    font-size: x-large;
+.page-detail .page-read-count button {
+    font-size: small;
+}
+
+.page-detail .page-read-count p {
+    font-size: medium;
+    color: #888888;
 }
 
 .page-detail .page-description {
     word-break: break-all;
     color: #555555;
-    padding-top: 20px;
 }
 
 .page-detail .page-summary-image {
